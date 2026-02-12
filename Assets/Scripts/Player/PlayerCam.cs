@@ -9,11 +9,12 @@ public class PlayerCam : MonoBehaviour
     private bool initialized = false;
 
     // Sensitivity settings for mouse movement
-    public float sensX;
-    public float sensY;
+    [Header("Mouse Sensitivity")]
+    [SerializeField] private float sensX;
+    [SerializeField] private float sensY;
 
     // Reference to the player's orientation transform
-    public Transform orientation;
+    [SerializeField] private Transform orientation;
 
     // Variables to store rotation values
     float xRotation;
@@ -36,6 +37,7 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
+        // Skip the first update frame to prevent sudden camera movement on start
         if (!initialized)
         {
             initialized = true;

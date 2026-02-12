@@ -150,8 +150,7 @@ GameObject:
   - component: {fileID: 5644386063240501057}
   - component: {fileID: 5517119637609232791}
   - component: {fileID: 4513694709365502566}
-  - component: {fileID: 4173442007358428879}
-  - component: {fileID: 8332285445200718887}
+  - component: {fileID: 8044813459679665771}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -242,7 +241,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 0}
---- !u!114 &4173442007358428879
+  pauseManager: {fileID: 0}
+--- !u!114 &8044813459679665771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,24 +251,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8107784150408659051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f2ad55fc4f02074293cc47bf38f5767, type: 3}
+  m_Script: {fileID: 11500000, guid: 0629b31c6c4fbd747ab690d853f01bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinText: {fileID: 0}
---- !u!114 &8332285445200718887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8107784150408659051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0e72b8784a131d4c94f671834f976ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeText: {fileID: 0}
   timer: {fileID: 0}
+  coinCollector: {fileID: 0}
 --- !u!1 &9089431882479793876
 GameObject:
   m_ObjectHideFlags: 0

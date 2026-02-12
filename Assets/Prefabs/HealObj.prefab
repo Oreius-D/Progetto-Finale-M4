@@ -117,8 +117,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7950608069959674895}
   - component: {fileID: 3336165178170815241}
-  - component: {fileID: 1995315723242926841}
   - component: {fileID: 8007582899508063918}
+  - component: {fileID: 1440894060913655050}
   m_Layer: 11
   m_Name: HealObj
   m_TagString: Untagged
@@ -158,19 +158,6 @@ MonoBehaviour:
   floatAmplitude: 0.25
   floatFrequency: 1.5
   rotationSpeed: {x: 0, y: 90, z: 0}
---- !u!114 &1995315723242926841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039435381097782859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df351224e216325468116e7c93c662b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healAmount: 50
 --- !u!136 &8007582899508063918
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -194,6 +181,19 @@ CapsuleCollider:
   m_Height: 2.0312586
   m_Direction: 1
   m_Center: {x: 0.0016050339, y: 0.0089325905, z: 0}
+--- !u!114 &1440894060913655050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039435381097782859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4524b178915e845a3f11af1ab60995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 11400000, guid: c91b9525e443e8949889304480c2bce7, type: 2}
 --- !u!1 &3172141132854007107
 GameObject:
   m_ObjectHideFlags: 0

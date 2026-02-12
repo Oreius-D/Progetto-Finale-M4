@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")] 
-    public float moveSpeed = 5f; // Speed of the player movement
-    public float groundDrag = 6f; // Drag when on the ground
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 5f; // Speed of the player movement
+    [SerializeField] private float groundDrag = 6f; // Drag when on the ground
     
-    [Header("Jumping")] 
-    public float jumpForce = 5f; // Force applied when jumping
-    public float jumpCooldown = 0.25f; // Cooldown time between jumps
-    public float airMultiplier = 0.5f; // Multiplier for movement in the air
+    [Header("Jumping")]
+    [SerializeField] private float jumpForce = 5f; // Force applied when jumping
+    [SerializeField] private float jumpCooldown = 0.25f; // Cooldown time between jumps
+    [SerializeField] private float airMultiplier = 0.5f; // Multiplier for movement in the air
     bool readyToJump; 
 
-    [Header("Keybinds")] 
-    public KeyCode jumpKey = KeyCode.Space; // Key to jump 
+    [Header("Keybinds")]
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space; // Key to jump 
 
     [Header("Ground check")] 
     public float playerHeight = 2f; // Height of the player for ground check 
-    public LayerMask groundLayer; // Layer mask for ground detection 
+    [SerializeField] private LayerMask groundLayer; // Layer mask for ground detection 
     bool isGrounded;
 
     public Transform orientation; // Reference to the orientation object 

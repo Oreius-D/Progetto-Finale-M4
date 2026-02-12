@@ -1,5 +1,5 @@
-﻿using Unity.VisualScripting.Antlr3.Runtime;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -9,86 +9,110 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject LoseMenu;
     [SerializeField] private GameObject WinMenu;
 
+    // Prevent ESC from toggling pause while Win/Lose screens are active.
+    private bool isEndScreenActive = false;
+
     void Start()
     {
-        SetPaused(false);
+        // Start in gameplay mode (no menus, time running, cursor locked).
+        ShowNone();
+        ApplyPause(false);
     }
 
     void Update()
     {
+        // If an end screen is active, ignore ESC.
+        if (isEndScreenActive) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SetPaused(!IsPaused);
         }
     }
 
-    public void SetPaused(bool paused)
+    // ===== Core helpers =====
+
+    // Applies the actual pause effects (time scale + cursor) and updates IsPaused.
+    private void ApplyPause(bool paused)
     {
         IsPaused = paused;
 
-        // UI
-        if (pauseMenu != null)
-            pauseMenu.SetActive(paused);
-
-        // Tempo di gioco
         Time.timeScale = paused ? 0f : 1f;
 
-        // Mouse
         Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = paused;
     }
 
-    // Comodo per bottoni UI
+    // Ensures only one menu is visible at a time.
+    private void ShowOnly(GameObject menuToShow)
+    {
+        if (pauseMenu != null) pauseMenu.SetActive(menuToShow == pauseMenu);
+        if (LoseMenu != null) LoseMenu.SetActive(menuToShow == LoseMenu);
+        if (WinMenu != null) WinMenu.SetActive(menuToShow == WinMenu);
+    }
+
+    private void ShowNone()
+    {
+        if (pauseMenu != null) pauseMenu.SetActive(false);
+        if (LoseMenu != null) LoseMenu.SetActive(false);
+        if (WinMenu != null) WinMenu.SetActive(false);
+    }
+
+    // ===== Public API =====
+
+    public void SetPaused(bool paused)
+    {
+        // Normal pause is not an end screen.
+        isEndScreenActive = false;
+
+        ShowOnly(paused ? pauseMenu : null);
+        ApplyPause(paused);
+
+        // If unpausing, hide everything.
+        if (!paused) ShowNone();
+    }
+
     public void ResumeButton() => SetPaused(false);
 
-    // Se hai un bottone "Quit"
+    // Call when player loses
+    public void ShowLoseScreen()
+    {
+        isEndScreenActive = true;
+        ShowOnly(LoseMenu);
+        ApplyPause(true); // freeze game
+    }
+
+    // Call when player wins
+    public void ShowWinScreen()
+    {
+        isEndScreenActive = true;
+        ShowOnly(WinMenu);
+        ApplyPause(true); // freeze game
+    }
+
+    public void MainMenu()
+    {
+        // Safe reset before loading scenes
+        isEndScreenActive = false;
+        ShowNone();
+        ApplyPause(false);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void RestartGame()
+    {
+        isEndScreenActive = false;
+        ShowNone();
+        ApplyPause(false);
+        SceneManager.LoadScene("Level");
+    }
+
     public void QuitGame()
     {
-        //Quit in editor
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
-    }
-
-    //function to menu from pause/win/lose screen
-    public void MainMenu()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-    }
-
-    //function to restart the game from pause/win/lose screen
-    public void RestartGame()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level");
-    }
-
-    public void lose(bool paused)
-    {
-        // UI
-        if (LoseMenu != null)
-            LoseMenu.SetActive(true);
-
-        // Tempo di gioco
-        Time.timeScale = paused ? 0f : 1f;
-
-        // Mouse
-        Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = paused;
-    }
-
-    public void win(bool paused)
-    {
-        // UI
-        if (WinMenu != null)
-            WinMenu.SetActive(true);
-
-        // Tempo di gioco
-        Time.timeScale = paused ? 0f : 1f;
-
-        // Mouse
-        Cursor.lockState = paused ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = paused;
     }
 }

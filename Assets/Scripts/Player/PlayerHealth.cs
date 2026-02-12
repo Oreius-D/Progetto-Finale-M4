@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IHealable
 {
 
-    public float maxHealth = 100f; // Maximum health of the player
-    public float currentHealth; // Current health of the player
+    [SerializeField] private float maxHealth = 100f; // Maximum health of the player
+    [SerializeField] private float currentHealth; // Current health of the player
 
-    public HealthBar healthBar; // Reference to the HealthBar script to update the health bar UI
+    [SerializeField] private HealthBar healthBar; // Reference to the HealthBar script to update the health bar UI
 
-    public PauseManager pauseManager; // Reference to the PauseManager script to handle pausing the game on player death
+    [SerializeField] private PauseManager pauseManager; // Reference to the PauseManager script to handle pausing the game on player death
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
     {
         // Show death screen and pause the game
         pauseManager.SetPaused(true); // Call the SetPaused method from the PauseManager to pause the game
-        pauseManager.lose(true); // Call the lose method from the PauseManager to show the lose screen
+        pauseManager.ShowLoseScreen(); // Call the lose method from the PauseManager to show the lose screen
 
     }
 

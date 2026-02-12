@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Timer : MonoBehaviour
+public class Timer : MonoBehaviour, ITimeReceiver
 {
     [SerializeField] TextMeshProUGUI timerText; // Reference to the TextMeshProUGUI component that will display the timer
     private float timeRemaining = 300f; // Total time for the timer in seconds
@@ -50,6 +50,6 @@ public class Timer : MonoBehaviour
     {
         // Show lose screen and pause the game
         pauseManager.SetPaused(true); // Call the SetPaused method from the PauseManager to pause the game
-        pauseManager.lose(true); // Call the lose method from the PauseManager to show the lose screen
+        pauseManager.ShowLoseScreen(); // Call the lose method from the PauseManager to show the lose screen
     }
 }
